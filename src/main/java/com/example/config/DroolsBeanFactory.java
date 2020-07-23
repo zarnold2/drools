@@ -28,7 +28,7 @@ public class DroolsBeanFactory
   private KieFileSystem getKieFileSystem() throws IOException
   {
     KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-    List<String> rules = Arrays.asList("BackwardChaining.drl", "SuggestApplicant.drl", "Product_rules.xls");
+    List<String> rules = Arrays.asList("BackwardChaining.drl", "SuggestApplicant.drl");
     for (String rule : rules)
     {
       kieFileSystem.write(ResourceFactory.newClassPathResource(rule));
@@ -97,25 +97,6 @@ public class DroolsBeanFactory
     KieSession ksession = kieContainer.newKieSession();
 
     return ksession;
-  }
-
-  /*
-   * Can be used for debugging Input excelFile example:
-   * com/baeldung/drools/rules/Discount.xls
-   */
-  public String getDrlFromExcel(String excelFile)
-  {
-
-    DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
-    configuration.setInputType(DecisionTableInputType.XLS);
-
-    Resource dt = ResourceFactory.newClassPathResource(excelFile, getClass());
-
-    DecisionTableProviderImpl decisionTableProvider = new DecisionTableProviderImpl();
-
-    String drl = decisionTableProvider.loadFromResource(dt, null);
-
-    return drl;
   }
 
 }
